@@ -1,5 +1,7 @@
 
-<li class="country-list__item">
-    <img style="width: 40px;" class="country-list__image" src="{{flags.png}}" alt="{{name.oficial}}">
-    <span class="country-list__text">{{name.common}}</span>
-</li>
+{{#each this}}
+    <li class="country-list__item">
+        <img style="width: 40px;" class="country-list__image" src="{{flags.png}}" alt="{{name.oficial}}">
+        <span class="country-list__text">{{name.common}}</span>
+    </li>
+{{/each}}

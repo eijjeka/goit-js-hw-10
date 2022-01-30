@@ -1,6 +1,6 @@
 import { fetchCountries } from './js/fetchCountries';
 import heandleCountry from './country.hbs';
-import countryInfo from './current_country.hbs'
+import countryInfo from './current_country.hbs';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
 
@@ -20,13 +20,11 @@ function onInput(event) {
 
     fetchCountries(value)
         .then(country => {
-            
             clearHtml()
 
             const countryLength = country.length;
 
-            if (countryLength > 1 && countryLength < 10) {
-
+            if (countryLength > 1  && countryLength < 10) {
                 refs.list.insertAdjacentHTML('beforeend', heandleCountry(country));
 
             } else if (countryLength === 1) {
@@ -40,7 +38,7 @@ function onInput(event) {
             } else {
 
                 Notiflix.Notify.failure("Oops, there is no country with that name")
-                
+
             }
             
         })
