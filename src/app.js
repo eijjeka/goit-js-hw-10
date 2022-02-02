@@ -15,16 +15,19 @@ const refs = {
 function onInput(event) {
 
     const value = event.target.value.trim();
-
+    
     clearHtml()
-
+    
     fetchCountries(value)
         .then(country => {
-            clearHtml()
-
+        
             const countryLength = country.length;
 
-            if (countryLength > 1  && countryLength < 10) {
+            inputChackValue(value);
+        
+            clearHtml();
+
+            if (countryLength >= 2 && countryLength < 10) {
                 refs.list.insertAdjacentHTML('beforeend', heandleCountry(country));
 
             } else if (countryLength === 1) {
@@ -34,21 +37,25 @@ function onInput(event) {
             } else if (countryLength > 10) {
 
                 Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
-                
-            } else {
-
-                Notiflix.Notify.failure("Oops, there is no country with that name")
 
             }
             
-        })
-        // .catch(Notiflix.Notify.failure("Oops, there is no country with that name"))
-        // Не работает помоги)))
+        }).catch(countryLength => {
+            if (countryLength === 0) {
+                Notiflix.Notify.failure("Oops, there is no country with that name")
+            }
+        });
 }
 
 function clearHtml() {
     refs.divContainer.innerHTML = '';
     refs.list.innerHTML = '';
+}
+
+function inputChackValue(value) {
+    if (value === '') {
+        Notiflix.Notify.info('Please enter country');
+    }
 }
 
 refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
