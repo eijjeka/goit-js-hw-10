@@ -20,14 +20,18 @@ function onInput(event) {
     
     fetchCountries(value)
         .then(country => {
-        
+
             const countryLength = country.length;
 
             inputChackValue(value);
-        
+
             clearHtml();
 
-            if (countryLength >= 2 && countryLength < 10) {
+            if (!countryLength) {
+
+                Notiflix.Notify.failure("Oops, there is no country with that name");
+
+            } else if (countryLength >= 2 && countryLength < 10) {
                 refs.list.insertAdjacentHTML('beforeend', heandleCountry(country));
 
             } else if (countryLength === 1) {
@@ -40,11 +44,7 @@ function onInput(event) {
 
             }
             
-        }).catch(countryLength => {
-            if (countryLength === 0) {
-                Notiflix.Notify.failure("Oops, there is no country with that name")
-            }
-        });
+        })
 }
 
 function clearHtml() {
